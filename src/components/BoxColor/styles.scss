@@ -1,0 +1,11 @@
+.box-color {
+	$dimension: 10rem;
+
+	display: inline-block;
+	width: $dimension;
+	height: $dimension;
+	border-radius: 1rem;
+
+	cursor: pointer;
+	transition: 0.5s ease;
+}

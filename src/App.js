@@ -1,9 +1,11 @@
 import './App.scss';
+import BoxColor from './components/BoxColor';
 
 function App() {
 	return (
 		<div className='app'>
-			<h1>Hello world!</h1>
+			<h1>Hello React Hooks!</h1>
+			<BoxColor />
 		</div>
 	);
 }
