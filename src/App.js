@@ -1,41 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.scss';
-import TodoForm from './components/TodoForm';
-import TodoList from './components/TodoList';
-
-const initTodoList = [
-	{ id: 1, title: 'I love Easy Frontend! 😍 ' },
-	{ id: 2, title: 'We love Easy Frontend! 🥰 ' },
-	{ id: 3, title: 'They love Easy Frontend! 🚀 ' },
-];
+import PostList from './components/PostList';
 
 function App() {
-	const [todoList, setTodoList] = useState(initTodoList);
+	const [postList, setPostList] = useState([]);
 
-	function handleTodoListClick(id) {
-		const newTodoList = todoList.filter((todo) => id !== todo.id);
-		setTodoList(newTodoList);
-	}
+	useEffect(() => {
+		try {
+			async function fetchData() {
+				const requestUrl =
+					'http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1';
+				const response = await fetch(requestUrl);
+				const responseJson = await response.json();
+				const { data } = responseJson;
 
-	function handleTodoFormSubmit(valueSubmit) {
-		const newTodo = {
-			id: todoList.length + 1,
-			...valueSubmit,
-		};
-		const newTodoList = [...todoList];
-		newTodoList.push(newTodo);
+				setPostList(data);
+			}
 
-		setTodoList(newTodoList);
-	}
+			fetchData();
+		} catch (error) {
+			console.log('Error when get data from API', error.messeage);
+		}
+	}, []);
 
 	return (
 		<div className='app'>
 			<h1>React Hooks - Todo List</h1>
-			<TodoForm onSubmit={handleTodoFormSubmit} />
-			<TodoList
-				todoList={todoList}
-				onTodoListClick={handleTodoListClick}
-			/>
+			<PostList postList={postList} />
 		</div>
 	);
 }
