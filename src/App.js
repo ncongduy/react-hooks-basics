@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
 import Pagination from './components/Pagination';
+import PostFilter from './components/PostFilter';
 import PostList from './components/PostList';
 
 function App() {
@@ -13,12 +14,13 @@ function App() {
 	const [filters, setFilters] = useState({
 		_limit: 10,
 		_page: 1,
+		title_like: '',
 	});
 
 	useEffect(() => {
 		try {
 			async function fetchData() {
-				const requestUrl = `http://js-post-api.herokuapp.com/api/posts?_limit=${filters._limit}&_page=${filters._page}`;
+				const requestUrl = `http://js-post-api.herokuapp.com/api/posts?_limit=${filters._limit}&_page=${filters._page}&title_like=${filters.title_like}`;
 				const response = await fetch(requestUrl);
 				const responseJson = await response.json();
 				const { data, pagination } = responseJson;
@@ -40,9 +42,18 @@ function App() {
 		});
 	}
 
+	function handlePostFilterChange(value) {
+		setFilters({
+			...filters,
+			_page: 1,
+			title_like: value,
+		});
+	}
+
 	return (
 		<div className='app'>
 			<h1>React Hooks - Todo List</h1>
+			<PostFilter onSubmit={handlePostFilterChange} />
 			<PostList postList={postList} />
 			<Pagination
 				pagination={pagination}

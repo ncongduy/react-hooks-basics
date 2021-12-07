@@ -22,7 +22,7 @@ function Pagination(props) {
 	}
 
 	return (
-		<div class='pagination'>
+		<div className='pagination'>
 			<button
 				disabled={_page <= 1}
 				onClick={() => handleClick(_page - 1)}
