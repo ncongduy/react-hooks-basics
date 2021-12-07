@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
+import Clock from './components/Clock';
 import Pagination from './components/Pagination';
 import PostFilter from './components/PostFilter';
 import PostList from './components/PostList';
@@ -16,6 +17,8 @@ function App() {
 		_page: 1,
 		title_like: '',
 	});
+
+	const [toggleClock, setToggleClock] = useState(true);
 
 	useEffect(() => {
 		try {
@@ -53,6 +56,17 @@ function App() {
 	return (
 		<div className='app'>
 			<h1>React Hooks - Todo List</h1>
+
+			{toggleClock && <Clock />}
+			<button
+				onClick={() => setToggleClock(!toggleClock)}
+				style={{
+					marginBottom: '2rem',
+				}}
+			>
+				Toggle Clock
+			</button>
+
 			<PostFilter onSubmit={handlePostFilterChange} />
 			<PostList postList={postList} />
 			<Pagination
