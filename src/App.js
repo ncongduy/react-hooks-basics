@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
 import Clock from './components/Clock';
+import MagicBox from './components/MagicBox';
 import Pagination from './components/Pagination';
 import PostFilter from './components/PostFilter';
 import PostList from './components/PostList';
@@ -73,6 +74,7 @@ function App() {
 				pagination={pagination}
 				onPageChange={handlePageChange}
 			/>
+			<MagicBox />
 		</div>
 	);
 }
